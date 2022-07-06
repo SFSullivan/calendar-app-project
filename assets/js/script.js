@@ -7,7 +7,7 @@ function updateTime() {
 
     $("#currentDay").text(today.format("dddd, MMMM Do YYYY, h:mm.ss"));
 
-    // coloring the time blocks
+    // function for coloring the time blocks
     var now = moment().format("kk");
     for (let i = 0; i < scheduleArray.length; i++) {
         scheduleArray[i].removeClass("future past present");
@@ -24,19 +24,21 @@ function updateTime() {
 
 
 
+// establishing variables for the timeblocks
+var sched0900 = $("#h-0900")
+var sched1000 = $("#h-1000")
+var sched1100 = $("#h-1100")
+var sched1200 = $("#h-1200")
+var sched1300 = $("#h-1300")
+var sched1400 = $("#h-1400")
+var sched1500 = $("#h-1500")
+var sched1600 = $("#h-1600")
+var sched1700 = $("#h-1700")
+var containEl = $(".container")
+var saveBtn = $(".save-icon")
 
-var sched0900 = document.querySelector("#0900")
-var sched1000 = document.querySelector("#1000")
-var sched1100 = document.querySelector("#1100")
-var sched1200 = document.querySelector("#1200")
-var sched1300 = document.querySelector("#1300")
-var sched1400 = document.querySelector("#1400")
-var sched1500 = document.querySelector("#1500")
-var sched1600 = document.querySelector("#1600")
-var sched1500 = document.querySelector("#1700")
-var containEl = document.querySelector(".container")
-var saveBtn = document.querySelector(".save-icon")
 
+//the array of all timeblocks
 let scheduleArray = [
     sched0900,
     sched1000,
@@ -53,14 +55,20 @@ lastRegistered();
 updateTime();
 setInterval(updateTime, 1000);
 
+
+//brings up the last thing saved in that time block
 function lastRegistered() {
     for (let el of scheduleArray) {
-        el.val(localStorage.getItem("time block" + el.data("hour")));
+        var timeBlockValue = localStorage.getItem("time block " + el.data("hour"));
+        el.val(timeBlockValue);
 
+        console.log(timeBlockValue);
     }
 
 }
 
+
+//submits whatever is in the timeblock to the local storage
 function formSubmit(event) {
     event.preventDefault();
 
@@ -72,5 +80,7 @@ function formSubmit(event) {
 
     localStorage.setItem("time block " + timeBlockTarget, targetText.val());
 }
+
+
 
 saveBtn.on("click", formSubmit)

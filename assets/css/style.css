@@ -73,3 +73,7 @@ textarea {
 .fa-folder-open {
   font-size: 1.6rem;
 }
+
+.fa-folder-open:hover {
+  color: #06aed5;
+}
